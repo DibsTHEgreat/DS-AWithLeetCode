@@ -28,15 +28,57 @@ class LinkedList:
     # appending an item to the end of the list
     def append(self, value):
         new_node = Node(value)
+        # edge case of the LL being empty
         if self.head is None:
             self.head = new_node
             self.tail = new_node
+        # adding a new node to the end of the list
         else:
             self.tail.next = new_node
             self.tail = new_node
         self.length += 1
         return True
-        
+    
+    # pop method for the LL class
+    def pop(self):
+        if self.length == 0:
+            return None
+        pre = self.head
+        temp = self.head
+        # this while loop lasts until temp
+        # First we assign pre to temp
+        # temp moves to the next node, while pre remains at the prev node
+        # this continues until temp hits None & pre is before last node
+        while(temp.next):
+            pre = temp
+            temp = temp.next
+        # move tail back a node
+        self.tail = pre
+        # remove connection to last node
+        self.tail.next = None
+        # reduce length of LL
+        self.length -= 1
+        # now we check if the length is 0
+        if self.length == 0:
+            self.head = None
+            self.tail = None
+        return temp.value
+    
+    # adding a node to a LL
+    def prepend(self, value):
+        new_node = Node(value)
+        # checking whether the linked list is empty
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+        # making new node point to the first node in the LL
+           new_node.next = self.head
+        # moving head to the new node
+           self.head = new_node
+        self.length += 1
+        return True
+                
         
 print("Testing out my constructor class for my Linked List by creating a node:")
 my_LL = LinkedList(1)
@@ -45,4 +87,12 @@ my_LL.print_list()
 
 print("Testing out my append func for my Linked List by adding node 4:")
 my_LL.append(4)
+my_LL.print_list() 
+
+print("Testing out my pop func for my Linked List by removing the last node")
+my_LL.pop()
+my_LL.print_list() 
+
+print("Testing out my prepend func for my Linked List by adding the node 3 to the front of the LL")
+my_LL.prepend(3)
 my_LL.print_list() 
