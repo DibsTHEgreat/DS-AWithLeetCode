@@ -78,6 +78,32 @@ class LinkedList:
            self.head = new_node
         self.length += 1
         return True
+    
+    # popping a node from the LL
+    def pop_first(self):
+        # can't pop from a empty list
+        if self.length == 0:
+            return None
+        temp = self.head
+        self.head = self.head.next
+        temp.next = None
+        self.length -= 1
+        # after removal, if LL is left empty than tail is set to None
+        if self.length == 0:
+            self.tail = None
+        return temp
+    
+    # get function for my LL class
+    def get(self, index):
+        # grabbing a edge case
+        if index < 0 or index >= self.length:
+            return None
+        temp = self.head
+        # we use a _ instead of a variable i because we don't need  it in the for loop
+        for _ in range(index):
+            temp = temp.next
+        return temp.value
+        
                 
         
 print("Testing out my constructor class for my Linked List by creating a node:")
@@ -96,3 +122,13 @@ my_LL.print_list()
 print("Testing out my prepend func for my Linked List by adding the node 3 to the front of the LL")
 my_LL.prepend(3)
 my_LL.print_list() 
+
+print("Testing out my pop func for my Linked List by removing the first node")
+my_LL.pop_first()
+my_LL.print_list() 
+
+print("Testing out my get func for my Linked List by printing the index of 2")
+my_LL.append(4)
+my_LL.append(8)
+print(my_LL.get(2)) 
+
