@@ -102,8 +102,41 @@ class LinkedList:
         # we use a _ instead of a variable i because we don't need  it in the for loop
         for _ in range(index):
             temp = temp.next
-        return temp.value
+        return temp
+
+    # set a value within the LL
+    def set_value(self, index, value):
+        # using the get func above to make temp set to index node
+        temp = self.get(index)
+        if temp is not None:
+            temp.value = value
+            return True
+        return False
+
+    # inserting a node within a LL
+    def insert(self, index, value):
+        # invalid index input
+        if index < 0 or index > self.length:
+            return False
+        # if index is empty, a simple prepend func works
+        if index == 0:
+            return self.prepend(value)
+        # if the index is set to last node, than you are appending an index
+        if index == self.length:
+            return self.append(value)
         
+        # creating a new node
+        new_node = Node(value)
+        # point to the node right before the index node
+        temp = self.get(index - 1)
+        
+        # make the new node point to what temp is pointing too
+        new_node.next = temp.next
+        # now make temp.next point to new node
+        temp.next = new_node
+        
+        self.length += 1
+        return True
                 
         
 print("Testing out my constructor class for my Linked List by creating a node:")
@@ -132,3 +165,16 @@ my_LL.append(4)
 my_LL.append(8)
 print(my_LL.get(2)) 
 
+print("Testing out my set func for my Linked List by replacing Node 8 as Node 3")
+print("Before func is used:")
+my_LL.print_list() 
+print("After func is used:")
+my_LL.set_value(2, 3)
+my_LL.print_list() 
+
+print("Testing out my Insert func for my Linked List by adding Node 8 at Index 2")
+print("Before func is used:")
+my_LL.print_list() 
+print("After func is used:")
+my_LL.insert(2, 8)
+my_LL.print_list() 
