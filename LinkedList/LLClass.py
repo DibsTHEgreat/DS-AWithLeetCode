@@ -123,20 +123,57 @@ class LinkedList:
             return self.prepend(value)
         # if the index is set to last node, than you are appending an index
         if index == self.length:
-            return self.append(value)
-        
+            return self.append(value)     
         # creating a new node
         new_node = Node(value)
         # point to the node right before the index node
         temp = self.get(index - 1)
-        
         # make the new node point to what temp is pointing too
         new_node.next = temp.next
         # now make temp.next point to new node
-        temp.next = new_node
-        
+        temp.next = new_node  
         self.length += 1
         return True
+    
+    # removing a node at a particular index
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        if index == 0:
+            return self.pop_first()
+        if index == self.length - 1:
+            return self.pop()
+        
+        prev = self.get(index - 1)
+        temp = prev.next
+        
+        prev.next = temp.next
+        temp.next = None
+        self.length  -= 1
+        return temp
+    
+    # reversing a linked list
+    def reverse(self):
+        # flipping head & tail
+        temp  = self.head
+        self.head = self.tail
+        self.tail = temp
+        
+        # creating variables to surround our temp variable
+        after =  temp.next
+        before = None
+        
+        for _ in range(self.length):
+            # moving after to next node
+            after = temp.next
+            # flipping pointer the other way by pointing to before
+            temp.next = before
+            # bringing before to temp
+            before = temp
+            # now we move temp to after
+            temp = after
+        
+        
                 
         
 print("Testing out my constructor class for my Linked List by creating a node:")
@@ -178,3 +215,26 @@ my_LL.print_list()
 print("After func is used:")
 my_LL.insert(2, 8)
 my_LL.print_list() 
+
+print("Testing out my remove func for my Linked List by removing Node 4 at Index 1")
+print("Before func is used:")
+my_LL.print_list() 
+print("After func is used:")
+my_LL.remove(1)
+my_LL.print_list() 
+
+print("Testing out my reverse func for my Linked List")
+print("Before func is used:")
+my_LL2 = LinkedList(0)
+my_LL2.append(1)
+my_LL2.append(2)
+my_LL2.append(3)
+my_LL2.append(4)
+my_LL2.append(5)
+my_LL2.append(6)
+my_LL2.append(7)
+my_LL2.append(8)
+my_LL2.print_list() 
+print("After func is used:")
+my_LL2.reverse() 
+my_LL2.print_list()
