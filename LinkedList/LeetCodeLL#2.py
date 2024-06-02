@@ -1,4 +1,4 @@
-# LeetCode 1: Has Loop 
+# LeetCode 2: Has Loop 
 # Write a method called has_loop that is part of the linked list class. The method should be able to detect if there is a cycle or loop present in the linked list.
 # You are required to use Floyd's cycle-finding algorithm (also known as the "tortoise and the hare" algorithm) to detect the loop.
 # This algorithm uses two pointers: a slow pointer and a fast pointer. The slow pointer moves one step at a time, while the fast pointer moves two steps at a time. 
